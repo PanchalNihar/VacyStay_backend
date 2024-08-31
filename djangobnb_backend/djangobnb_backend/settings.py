@@ -51,7 +51,7 @@ ACCOUNT_EMAIL_VERIFACTION=None
 
 REST_FRAMEWORK={
     "DEFAULT_AUTHENTICATION_CLASSES":(
-        'rest_framework_simplejwt.autentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         'rest_framework.permissions.IsAuthenticated',
@@ -62,6 +62,8 @@ CORS_ALLOWED_ORIGINS=[
     "http://localhost:8000",
     "http://localhost:3000"
 ]
+
+CORS_ALLOW_ALL_ORIGINS=True
 
 REST_AUTH={
     "USE_JWT": True,
@@ -80,6 +82,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'corsheaders',
@@ -97,6 +100,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'djangobnb_backend.urls'
