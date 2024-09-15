@@ -10,6 +10,10 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([])
 def properties_list(request):
     properties = Property.objects.all()
+    landlord_id=request.GET.get('landlord_id','')
+    if landlord_id:
+        properties = properties.filter(landlord_id=landlord_id)
+        
     serializer = PropertyListSerializers(properties, many=True)
 
     return JsonResponse({
