@@ -33,6 +33,13 @@ AUTH_USER_MODEL = 'useraccount.User'
 
 SITE_ID=1
 WEBSITE_URL='http://localhost:8000'
+
+CHANNEL_LAYERS ={
+    'default':{
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
+}
+
 SIMPLE_JWT={
     "ACCESS_TOKEN_LIFETIME":timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME":timedelta(days=7),
@@ -71,23 +78,30 @@ REST_AUTH={
 }
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
     'dj_rest_auth',
     'dj_rest_auth.registration',
+
     'corsheaders',
-    'useraccount',
+
+    'chat',
     'property',
+    'useraccount',
 ]
 
 MIDDLEWARE = [
@@ -99,8 +113,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'allauth.account.middleware.AccountMiddleware',  # Ensure this is placed correctly
 ]
 
 ROOT_URLCONF = 'djangobnb_backend.urls'
@@ -122,7 +135,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'djangobnb_backend.wsgi.application'
-
+ASGI_APPLICATION='djangobnb_backend.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
